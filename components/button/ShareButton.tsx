@@ -26,12 +26,16 @@ const ShareButton = (props: IProps) => {
       className={`${pressStyle}`}
       style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
     >
-      <View
-        className={`flex-row items-center rounded-xl px-[15px] py-[10px] bg-[#ccc] border border-red-500 gap-2 ${buttonStyle}`}
-      >
-        {icon}
-        <Text className={`${textStyle}`}>{title}</Text>
-      </View>
+      {({ pressed }) => (
+        <View
+          className={`flex-row items-center rounded-full px-[15px] py-[10px] gap-2 ${buttonStyle} ${
+            pressed ? "opacity-50" : "opacity-100"
+          }`}
+        >
+          {icon}
+          <Text className={textStyle}>{title}</Text>
+        </View>
+      )}
     </Pressable>
   );
 };

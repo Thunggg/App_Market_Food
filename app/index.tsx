@@ -10,8 +10,9 @@ import { Image, ImageBackground, Text, View } from "react-native";
 const WelcomePage = () => (
   <ImageBackground style={{ flex: 1 }} source={backgroundImage}>
     <LinearGradient
-      colors={["rgba(0,0,0,0.8)", "transparent"]}
-      style={{ flex: 1 }} // hoặc width: "100%", height: "100%"
+      colors={["transparent", "#191B2F"]}
+      locations={[0.2, 0.8]}
+      style={{ flex: 1 }}
     >
       <View className="flex-1 px-[28px]">
         <View className="flex-[0.6] justify-center">
@@ -30,11 +31,11 @@ const WelcomePage = () => (
           <View className="gap-4">
             <View className="flex-row items-center gap-2">
               <Divider className="flex-1" />
-              <Text className="text-gray-500 text-sm">Sign in with</Text>
+              <Text className="text-white text-sm">Sign in with</Text>
               <Divider className="flex-1" />
             </View>
 
-            <View className="flex-row justify-center gap-2">
+            <View className="flex-row justify-center gap-8">
               <ShareButton
                 title="FaceBook"
                 onPress={() => {
@@ -61,14 +62,17 @@ const WelcomePage = () => (
             <View>
               <ShareButton
                 title="Start with email"
-                onPress={() => {}}
-                textStyle="uppercase"
+                onPress={() => {
+                  console.log("start with email");
+                }}
+                textStyle="uppercase text-white"
                 pressStyle=""
-                buttonStyle="bg-white justify-center items-center"
+                buttonStyle="justify-center items-center bg-[#505050] border border-[3px] border-[#2c2c2c]"
               />
             </View>
             <View className="flex-row justify-center">
-              <Text className="">Already have an account? Sign In</Text>
+              <Text className="text-white">Already have an account? </Text>
+              <Text className="text-white underline">Sign In</Text>
             </View>
           </View>
         </View>
