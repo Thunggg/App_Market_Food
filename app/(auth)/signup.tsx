@@ -1,50 +1,43 @@
-import fbLogo from "@/assets/images/auth/facebook.png";
-import googleLogo from "@/assets/images/auth/google.png";
+import FormField from "@/components/auth/FormField";
+import SocialSignUp from "@/components/auth/SocialSignUp";
 import ShareButton from "@/components/button/ShareButton";
-import TextBetweenTwoLine from "@/components/button/TextBetweenTwoLine";
 import { Box } from "@/components/ui/box";
 import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
-import { Input, InputField } from "@/components/ui/input";
 import { VStack } from "@/components/ui/vstack";
-import { Image, Text } from "react-native";
+import { APP_COLORS } from "@/utils/constant";
+import { Text } from "react-native";
 
 const SignUpPage = () => {
   return (
     <>
       <Box className="flex-1 justify-center px-[26px] bg-white">
-        <Heading className="mb-[31px]">Sign Up</Heading>
+        <Heading className="mb-[31px] text-[37px]">Sign Up</Heading>
+        <FormField
+          label="Full Name"
+          placeholder="Enter your full name"
+          labelClassName={`text-[${APP_COLORS.GRAY}]`}
+        />
 
-        {/* full name */}
-        <VStack className="gap-[9px] mb-[29px]">
-          <Text>Full Name</Text>
-          <Input size="xl" variant="outline">
-            <InputField placeholder="Enter your full name" />
-          </Input>
-        </VStack>
+        <FormField
+          label="Email"
+          placeholder="Enter your email"
+          labelClassName={`text-[${APP_COLORS.GRAY}]`}
+          keyboardType="email-address"
+        />
 
-        {/* email address */}
-        <VStack className="gap-[9px] mb-[29px]">
-          <Text>Email</Text>
-          <Input size="xl" variant="outline">
-            <InputField placeholder="Enter your email" />
-          </Input>
-        </VStack>
+        <FormField
+          label="Password"
+          placeholder="Enter your password"
+          labelClassName={`text-[${APP_COLORS.GRAY}]`}
+          secureTextEntry={true}
+        />
 
-        {/* password */}
-        <VStack className="gap-[9px] mb-[33px]">
-          <Text>Password</Text>
-          <Input size="xl" variant="outline">
-            <InputField placeholder="Enter your password" />
-          </Input>
-        </VStack>
-
-        {/* sign up button */}
         <VStack className="items-center gap-[33px] mb-[54px]">
           <ShareButton
             title="Sign Up"
             onPress={() => {}}
-            buttonStyle="bg-[#FE724C] px-[75px]"
+            buttonStyle="bg-[#FE724C] px-[80px] py-[18px]"
             textStyle="text-white"
           />
           <HStack>
@@ -53,25 +46,7 @@ const SignUpPage = () => {
           </HStack>
         </VStack>
 
-        <VStack>
-          <TextBetweenTwoLine textStyle="text-black" />
-          <HStack className="items-center justify-between mt-[10px]">
-            <ShareButton
-              title="Google"
-              onPress={() => {}}
-              icon={<Image source={googleLogo} className="w-6 h-6" />}
-              pressStyle="flex-1"
-              textStyle="text-red-500"
-            />
-            <ShareButton
-              title="Facebook"
-              onPress={() => {}}
-              icon={<Image source={fbLogo} className="w-6 h-6" />}
-              pressStyle="flex-1"
-              textStyle="text-red-500"
-            />
-          </HStack>
-        </VStack>
+        <SocialSignUp />
       </Box>
     </>
   );
