@@ -30,7 +30,7 @@ const WelcomePage = () => (
         </View>
         <View className="flex-[0.4] justify-center">
           <View className="gap-4">
-            <TextBetweenTwoLine />
+            <TextBetweenTwoLine textStyle="text-white" />
 
             <View className="flex-row justify-center gap-8">
               <ShareButton
@@ -59,6 +59,7 @@ const WelcomePage = () => (
             <View>
               <ShareButton
                 title="Start with email"
+                icon=""
                 onPress={() => {
                   console.log("start with email");
                 }}

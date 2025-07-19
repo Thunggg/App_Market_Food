@@ -21,18 +21,13 @@ const ShareButton = (props: IProps) => {
   } = props;
 
   return (
-    <Pressable
-      onPress={onPress}
-      className={`${pressStyle}`}
-      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
-    >
+    <Pressable onPress={onPress} className={pressStyle}>
       {({ pressed }) => (
         <View
-          className={`flex-row items-center rounded-full px-[15px] py-[10px] gap-2 ${buttonStyle} ${
-            pressed ? "opacity-50" : "opacity-100"
-          }`}
+          className={`flex-row items-center rounded-full px-[15px] py-[10px] gap-2 ${buttonStyle}`}
+          style={{ opacity: pressed ? 0.5 : 1 }}
         >
-          {icon}
+          {icon && typeof icon === "object" ? icon : null}
           <Text className={textStyle}>{title}</Text>
         </View>
       )}
