@@ -1,4 +1,5 @@
-import { Input, InputField } from "@/components/ui/input";
+import { EyeIcon, EyeOffIcon } from "@/components/ui/icon";
+import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { VStack } from "@/components/ui/vstack";
 import { useState } from "react";
 import { Text } from "react-native";
@@ -11,6 +12,7 @@ interface FormFieldProps {
   inputClassName?: string;
   secureTextEntry?: boolean;
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
+  isPassword?: boolean;
 }
 
 const FormField = ({
@@ -23,6 +25,14 @@ const FormField = ({
   keyboardType = "default",
 }: FormFieldProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleState = () => {
+    setShowPassword((showState) => {
+      return !showState;
+    });
+  };
+
   return (
     <VStack className={`gap-[9px] mb-[29px] ${containerClassName}`}>
       <Text className={labelClassName}>{label}</Text>
@@ -35,11 +45,16 @@ const FormField = ({
       >
         <InputField
           placeholder={placeholder}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={secureTextEntry && !showPassword}
           keyboardType={keyboardType}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
+        {secureTextEntry && (
+          <InputSlot className="pr-3" onPress={handleState}>
+            <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
+          </InputSlot>
+        )}
       </Input>
     </VStack>
   );
