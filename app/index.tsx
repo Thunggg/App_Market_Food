@@ -2,9 +2,10 @@ import fbLogo from "@/assets/images/auth/facebook.png";
 import googleLogo from "@/assets/images/auth/google.png";
 import backgroundImage from "@/assets/images/auth/welcome-background.png";
 import ShareButton from "@/components/button/ShareButton";
-import { Divider } from "@/components/ui/divider";
+import TextBetweenTwoLine from "@/components/button/TextBetweenTwoLine";
 import { APP_COLORS } from "@/utils/constant";
 import { LinearGradient } from "expo-linear-gradient";
+import { Link } from "expo-router";
 import { Image, ImageBackground, Text, View } from "react-native";
 
 const WelcomePage = () => (
@@ -29,11 +30,7 @@ const WelcomePage = () => (
         </View>
         <View className="flex-[0.4] justify-center">
           <View className="gap-4">
-            <View className="flex-row items-center gap-2">
-              <Divider className="flex-1" />
-              <Text className="text-white text-sm">Sign in with</Text>
-              <Divider className="flex-1" />
-            </View>
+            <TextBetweenTwoLine />
 
             <View className="flex-row justify-center gap-8">
               <ShareButton
@@ -72,7 +69,9 @@ const WelcomePage = () => (
             </View>
             <View className="flex-row justify-center">
               <Text className="text-white">Already have an account? </Text>
-              <Text className="text-white underline">Sign In</Text>
+              <Link href={"/(auth)/signup"}>
+                <Text className="text-white underline">Sign In</Text>
+              </Link>
             </View>
           </View>
         </View>
