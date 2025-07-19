@@ -30,7 +30,7 @@ const WelcomePage = () => (
         </View>
         <View className="flex-[0.4] justify-center">
           <View className="gap-4">
-            <TextBetweenTwoLine textStyle="text-white" />
+            <TextBetweenTwoLine text="Sign in with" textStyle="text-white" />
 
             <View className="flex-row justify-center gap-8">
               <ShareButton
