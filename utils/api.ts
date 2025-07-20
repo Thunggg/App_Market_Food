@@ -6,5 +6,5 @@ export const registerAPI = (
   fullName: string
 ) => {
   const url = `/api/v1/auth/register`;
-  return axios.post(url, { email, password, fullName });
+  return axios.post<IBackendRes<IRegister>>(url, { email, password, fullName });
 };
