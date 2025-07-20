@@ -5,8 +5,9 @@ import { Box } from "@/components/ui/box";
 import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
+import { registerAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
-import axios from "axios";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Text } from "react-native";
 
@@ -16,10 +17,11 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
 
   const handleSignUp = async () => {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/register`;
-
     try {
-      const res = await axios.post(url, { fullName, email, password });
+      const res = await registerAPI(email, password, fullName);
+      if (res.data) {
+        router.navigate("/(auth)/verify");
+      }
     } catch (error) {}
   };
 
