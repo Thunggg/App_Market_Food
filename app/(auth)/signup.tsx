@@ -4,6 +4,12 @@ import ShareButton from "@/components/button/ShareButton";
 import { Box } from "@/components/ui/box";
 import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
+import {
+  Toast,
+  ToastDescription,
+  ToastTitle,
+  useToast,
+} from "@/components/ui/toast";
 import { VStack } from "@/components/ui/vstack";
 import { registerAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
@@ -15,12 +21,26 @@ const SignUpPage = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const toast = useToast();
 
   const handleSignUp = async () => {
     try {
       const res = await registerAPI(email, password, fullName);
+      console.log(res);
       if (res.data) {
         router.navigate("/(auth)/verify");
+      } else {
+        const errorMessage = Array.isArray(res.message)
+          ? res.message[0]
+          : res.message;
+        toast.show({
+          render: ({ id }) => (
+            <Toast nativeID={id} action="error" variant="solid">
+              <ToastTitle>Sign Up Failed</ToastTitle>
+              <ToastDescription>{errorMessage}</ToastDescription>
+            </Toast>
+          ),
+        });
       }
     } catch (error) {}
   };
@@ -58,9 +78,7 @@ const SignUpPage = () => {
         <VStack className="items-center gap-[33px] mb-[54px]">
           <ShareButton
             title="Sign Up"
-            onPress={() => {
-              console.log(fullName, email, password);
-            }}
+            onPress={() => handleSignUp()}
             buttonStyle="bg-[#FE724C] px-[80px] py-[18px]"
             textStyle="text-white"
           />
