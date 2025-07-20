@@ -13,6 +13,8 @@ interface FormFieldProps {
   secureTextEntry?: boolean;
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
   isPassword?: boolean;
+  value: string;
+  setValue: (v: string) => void;
 }
 
 const FormField = ({
@@ -23,6 +25,8 @@ const FormField = ({
   inputClassName = "",
   secureTextEntry = false,
   keyboardType = "default",
+  value,
+  setValue,
 }: FormFieldProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +48,8 @@ const FormField = ({
         }`}
       >
         <InputField
+          value={value}
+          onChangeText={(text) => setValue(text)}
           placeholder={placeholder}
           secureTextEntry={secureTextEntry && !showPassword}
           keyboardType={keyboardType}
