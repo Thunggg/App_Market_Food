@@ -26,7 +26,6 @@ const SignUpPage = () => {
   const handleSignUp = async () => {
     try {
       const res = await registerAPI(email, password, fullName);
-      console.log(res);
       if (res.data) {
         router.navigate("/(auth)/verify");
       } else {
@@ -54,7 +53,7 @@ const SignUpPage = () => {
           setValue={setFullName}
           label="Full Name"
           placeholder="Enter your full name"
-          labelClassName={`text-[${APP_COLORS.GRAY}]`}
+          labelClassName={`text-[${APP_COLORS.GREY}]`}
         />
 
         <FormField
@@ -62,7 +61,7 @@ const SignUpPage = () => {
           setValue={setEmail}
           label="Email"
           placeholder="Enter your email"
-          labelClassName={`text-[${APP_COLORS.GRAY}]`}
+          labelClassName={`text-[${APP_COLORS.GREY}]`}
           keyboardType="email-address"
         />
 
@@ -71,7 +70,7 @@ const SignUpPage = () => {
           setValue={setPassword}
           label="Password"
           placeholder="Enter your password"
-          labelClassName={`text-[${APP_COLORS.GRAY}]`}
+          labelClassName={`text-[${APP_COLORS.GREY}]`}
           secureTextEntry={true}
         />
 

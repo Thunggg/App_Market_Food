@@ -37,6 +37,10 @@ export default function RootLayout() {
                 name="(auth)/signup"
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="(auth)/verify"
+                options={{ headerShown: false }}
+              />
               <Stack.Screen name="+not-found" />
             </Stack>
             <StatusBar style="auto" />
