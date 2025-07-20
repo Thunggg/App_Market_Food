@@ -6,6 +6,7 @@ import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
 import { APP_COLORS } from "@/utils/constant";
+import axios from "axios";
 import { useState } from "react";
 import { Text } from "react-native";
 
@@ -13,6 +14,14 @@ const SignUpPage = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSignUp = async () => {
+    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/register`;
+
+    try {
+      const res = await axios.post(url, { fullName, email, password });
+    } catch (error) {}
+  };
 
   return (
     <>
