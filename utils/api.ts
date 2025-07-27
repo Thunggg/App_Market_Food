@@ -8,3 +8,11 @@ export const registerAPI = (
   const url = `/api/v1/auth/register`;
   return axios.post<IBackendRes<IRegister>>(url, { email, password, fullName });
 };
+
+export const verifyCodeAPI = (email: string, code: string) => {
+  const url = "/api/v1/auth/verify-code";
+  return axios.post<IBackendRes<IRegister>>(url, {
+    email,
+    code,
+  });
+};
