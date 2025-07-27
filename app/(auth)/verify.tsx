@@ -7,10 +7,10 @@ import {
   useToast,
 } from "@/components/ui/toast";
 import { VStack } from "@/components/ui/vstack";
-import { verifyCodeAPI } from "@/utils/api";
+import { resendCodeAPI, verifyCodeAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
 import { useLocalSearchParams } from "expo-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Keyboard, Text } from "react-native";
 import OTPTextView from "react-native-otp-textinput";
 
@@ -44,7 +44,7 @@ const VerifyPage = () => {
           </Toast>
         ),
       });
-      // router.navigate("/(auth)/login");
+      // router.replace("/(auth)/login");
     } else {
       toast.show({
         render: ({ id }) => (
@@ -56,6 +56,39 @@ const VerifyPage = () => {
       });
     }
   };
+
+  const handleResendOTP = async () => {
+    //call api
+    otpRef?.current?.clear();
+
+    const res = await resendCodeAPI(email as string);
+    if (res.data) {
+      toast.show({
+        render: ({ id }) => (
+          <Toast nativeID={id} action="success" variant="solid">
+            <ToastTitle>Gửi lại mã xác nhận thành công!</ToastTitle>
+            <ToastDescription>
+              Mã xác nhận đã được gửi tới địa chỉ email của bạn
+            </ToastDescription>
+          </Toast>
+        ),
+      });
+    } else {
+      toast.show({
+        render: ({ id }) => (
+          <Toast nativeID={id} action="error" variant="solid">
+            <ToastTitle>Gửi lại mã xác nhận thất bại!</ToastTitle>
+          </Toast>
+        ),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (code && code.length === 6) {
+      verifyCode();
+    }
+  }, [code]);
 
   return (
     <>
@@ -87,7 +120,9 @@ const VerifyPage = () => {
         </VStack>
 
         <Box className="flex-row my-2">
-          <Text>Không nhận được mã xác nhận, </Text>
+          <Text onPress={() => handleResendOTP()}>
+            Không nhận được mã xác nhận,{" "}
+          </Text>
           <Text className="underline text-[15px] text-primary">gửi lại</Text>
         </Box>
       </Box>
