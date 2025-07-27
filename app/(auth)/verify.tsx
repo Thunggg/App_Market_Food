@@ -9,34 +9,51 @@ import {
 import { VStack } from "@/components/ui/vstack";
 import { verifyCodeAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
-import { useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import { useRef, useState } from "react";
 import { Keyboard, Text } from "react-native";
 import OTPTextView from "react-native-otp-textinput";
 
 const VerifyPage = () => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const toast = useToast();
+  const otpRef = useRef<OTPTextView>(null);
+  const [code, setCode] = useState<string>("");
 
-  const handleCellTextChange = async (text: string, i: number) => {
-    if (i === 5 && text) {
-      setIsSubmit(true);
-      Keyboard.dismiss();
-      const res = await verifyCodeAPI("admin1@gmail.com", "123456");
-      setIsSubmit(false);
+  const { email } = useLocalSearchParams();
 
-      if (res.data) {
-        //success
-        alert("success");
-      } else {
-        toast.show({
-          render: ({ id }) => (
-            <Toast nativeID={id} action="error" variant="solid">
-              <ToastTitle>Sign Up Failed</ToastTitle>
-              <ToastDescription>Mã code không hợp lệ</ToastDescription>
-            </Toast>
-          ),
-        });
-      }
+  const verifyCode = async () => {
+    //call api
+    Keyboard.dismiss();
+    setIsSubmit(true);
+    const res = await verifyCodeAPI(email as string, code);
+    setIsSubmit(false);
+
+    //clear input
+
+    if (res.data) {
+      //success
+      otpRef?.current?.clear();
+      toast.show({
+        render: ({ id }) => (
+          <Toast nativeID={id} action="success" variant="solid">
+            <ToastTitle>Kích hoạt tài khoản thành công!</ToastTitle>
+            <ToastDescription>
+              Bạn đã kích hoạt tài khoản thành công rồi
+            </ToastDescription>
+          </Toast>
+        ),
+      });
+      // router.navigate("/(auth)/login");
+    } else {
+      toast.show({
+        render: ({ id }) => (
+          <Toast nativeID={id} action="error" variant="solid">
+            <ToastTitle>Kích hoạt tài khoản thất bại!</ToastTitle>
+            <ToastDescription>Mã code không hợp lệ</ToastDescription>
+          </Toast>
+        ),
+      });
     }
   };
 
@@ -52,7 +69,8 @@ const VerifyPage = () => {
 
         <VStack className="my-5 justify-center items-center">
           <OTPTextView
-            handleCellTextChange={handleCellTextChange}
+            ref={otpRef}
+            handleTextChange={setCode}
             autoFocus
             inputCount={6}
             inputCellLength={1}
