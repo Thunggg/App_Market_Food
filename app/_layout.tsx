@@ -10,7 +10,6 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import "../global.css";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -27,9 +26,13 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider mode="light">
       <SafeAreaProvider>
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView
+          className="flex-1"
+          style={{ backgroundColor: colorScheme === "light" ? "#fff" : "#000" }}
+          edges={["left", "right"]}
+        >
           <ThemeProvider
-            value={colorScheme === "light" ? DarkTheme : DefaultTheme}
+            value={colorScheme === "light" ? DefaultTheme : DarkTheme}
           >
             <Stack>
               <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -38,12 +41,20 @@ export default function RootLayout() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
+                name="(auth)/login"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
                 name="(auth)/verify"
                 options={{ headerShown: false }}
               />
               <Stack.Screen name="+not-found" />
             </Stack>
-            <StatusBar style="auto" />
+            <StatusBar
+              style="light"
+              backgroundColor="transparent"
+              translucent
+            />
           </ThemeProvider>
         </SafeAreaView>
       </SafeAreaProvider>
