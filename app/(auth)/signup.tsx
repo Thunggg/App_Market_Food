@@ -88,7 +88,12 @@ const SignUpPage = () => {
           />
           <HStack>
             <Text>Already have an account? </Text>
-            <Text className="text-[#FE724C]">Login</Text>
+            <Text
+              className="text-[#FE724C]"
+              onPress={() => router.push("/(auth)/login")}
+            >
+              Login
+            </Text>
           </HStack>
         </VStack>
 
