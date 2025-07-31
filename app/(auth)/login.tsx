@@ -21,10 +21,13 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
       const res = await loginAPI(email, password);
+      setLoading(false);
 
       if (res && res.data) {
         // router.push("/(app)/home");
@@ -85,6 +88,7 @@ const LoginPage = () => {
 
       <VStack className="items-center gap-[33px] mb-[54px]">
         <ShareButton
+          loading={loading}
           title="Login"
           onPress={handleLogin}
           buttonStyle="bg-[#FE724C] px-[80px] py-[18px]"
