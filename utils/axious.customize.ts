@@ -8,7 +8,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    config.headers["delay"] = 5000; // test loading
+    // config.headers["delay"] = 5000;
     return config;
   },
   function (error) {
