@@ -13,17 +13,17 @@ import {
 import { VStack } from "@/components/ui/vstack";
 import { loginAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
+import { LoginSchema } from "@/utils/validate.schema";
 import { router } from "expo-router";
+import { Formik } from "formik";
 import { useState } from "react";
 import { Text } from "react-native";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const toast = useToast();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleLogin = async () => {
+  const handleLogin = async (email: string, password: string) => {
     try {
       setLoading(true);
       const res = await loginAPI(email, password);
@@ -67,46 +67,63 @@ const LoginPage = () => {
   };
 
   return (
-    <Box className="flex-1 justify-center px-[26px] bg-white">
-      <Heading className="mb-[31px] text-[37px]">Login</Heading>
-      <FormField
-        value={email}
-        setValue={setEmail}
-        label="Email"
-        placeholder="Enter your full name"
-        labelClassName={`text-[${APP_COLORS.GREY}]`}
-      />
+    <>
+      <Formik
+        validationSchema={LoginSchema}
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={(values) => handleLogin(values.email, values.password)}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+          <Box className="flex-1 justify-center px-[26px] bg-white">
+            <Heading className="mb-[31px] text-[37px]">Login</Heading>
+            <FormField
+              value={values.email}
+              label="Email"
+              placeholder="Enter your full name"
+              labelClassName={`text-[${APP_COLORS.GREY}]`}
+              onChangeText={handleChange("email")}
+              onBlur={handleBlur("email")}
+              error={errors.email}
+            />
 
-      <FormField
-        value={password}
-        setValue={setPassword}
-        label="Password"
-        placeholder="Enter your password"
-        labelClassName={`text-[${APP_COLORS.GREY}]`}
-        secureTextEntry={true}
-      />
+            <FormField
+              value={values.password}
+              label="Password"
+              placeholder="Enter your password"
+              labelClassName={`text-[${APP_COLORS.GREY}]`}
+              secureTextEntry={true}
+              onChangeText={handleChange("password")}
+              onBlur={handleBlur("password")}
+              error={errors.password}
+            />
 
-      <VStack className="items-center gap-[33px] mb-[54px]">
-        <ShareButton
-          loading={loading}
-          title="Login"
-          onPress={handleLogin}
-          buttonStyle="bg-[#FE724C] px-[80px] py-[18px]"
-          textStyle="text-white"
-        />
-        <HStack>
-          <Text>Don’t have an account? </Text>
-          <Text
-            className="text-[#FE724C]"
-            onPress={() => router.push("/(auth)/signup")}
-          >
-            Sign Up
-          </Text>
-        </HStack>
-      </VStack>
+            <VStack className="items-center gap-[33px] mb-[54px]">
+              <ShareButton
+                loading={loading}
+                title="Login"
+                onPress={() => handleSubmit()}
+                buttonStyle="bg-[#FE724C] px-[80px] py-[18px]"
+                textStyle="text-white"
+              />
+              <HStack>
+                <Text>Don’t have an account? </Text>
+                <Text
+                  className="text-[#FE724C]"
+                  onPress={() => router.push("/(auth)/signup")}
+                >
+                  Sign Up
+                </Text>
+              </HStack>
+            </VStack>
 
-      <SocialSignUp />
-    </Box>
+            <SocialSignUp />
+          </Box>
+        )}
+      </Formik>
+    </>
   );
 };
 

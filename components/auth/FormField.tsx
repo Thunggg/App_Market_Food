@@ -14,7 +14,9 @@ interface FormFieldProps {
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
   isPassword?: boolean;
   value: string;
-  setValue: (v: string) => void;
+  onChangeText?: (v: string) => any;
+  onBlur?: any;
+  error?: any;
 }
 
 const FormField = ({
@@ -26,7 +28,9 @@ const FormField = ({
   secureTextEntry = false,
   keyboardType = "default",
   value,
-  setValue,
+  onChangeText,
+  onBlur,
+  error,
 }: FormFieldProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -49,12 +53,15 @@ const FormField = ({
       >
         <InputField
           value={value}
-          onChangeText={(text) => setValue(text)}
+          onChangeText={onChangeText}
           placeholder={placeholder}
           secureTextEntry={secureTextEntry && !showPassword}
           keyboardType={keyboardType}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onBlur={(e: any) => {
+            if (onBlur) onBlur(e);
+            setIsFocused(false);
+          }}
         />
         {secureTextEntry && (
           <InputSlot className="pr-3" onPress={handleState}>
@@ -62,6 +69,7 @@ const FormField = ({
           </InputSlot>
         )}
       </Input>
+      {error && <Text className="text-red-500 text-sm">{error}</Text>}
     </VStack>
   );
 };
