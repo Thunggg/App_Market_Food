@@ -22,10 +22,14 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = async () => {
     try {
+      setLoading(true);
       const res = await registerAPI(email, password, fullName);
+      setLoading(false);
+
       if (res.data) {
         router.replace({
           pathname: "/(auth)/verify",
@@ -81,6 +85,7 @@ const SignUpPage = () => {
 
         <VStack className="items-center gap-[33px] mb-[54px]">
           <ShareButton
+            loading={loading}
             title="Sign Up"
             onPress={() => handleSignUp()}
             buttonStyle="bg-[#FE724C] px-[80px] py-[18px]"
