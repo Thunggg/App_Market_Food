@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ecf0f1",
     flex: 1,
-    justifyContent: "center",
-    overflow: "hidden",
+    // justifyContent: "center",
+    // overflow: "hidden",
   },
   header: {
     borderColor: "red",
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   list: {
-    overflow: "hidden",
+    flex: 1,
+    // overflow: "hidden",
   },
   sticky: {
     backgroundColor: "#2555FF50",

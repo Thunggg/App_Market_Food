@@ -4,7 +4,7 @@ import {
   Dimensions,
   LayoutChangeEvent,
   StyleProp,
-  ViewStyle
+  ViewStyle,
 } from "react-native";
 
 type ICustomFlatListStyles = {
@@ -13,13 +13,13 @@ type ICustomFlatListStyles = {
   topElement?: StyleProp<ViewStyle>;
 };
 
-type TUseCustomFlatListHook=[
+type TUseCustomFlatListHook = [
   Animated.Value,
   ICustomFlatListStyles,
   (event: LayoutChangeEvent) => void,
   (event: LayoutChangeEvent) => void,
   (event: LayoutChangeEvent) => void
-]
+];
 
 const window = Dimensions.get("window");
 
@@ -28,12 +28,12 @@ export const useCustomFlatListHook = (): TUseCustomFlatListHook => {
   const [heights, setHeights] = useState({
     header: 0,
     sticky: 0,
-    topList: 0
+    topList: 0,
   });
 
   const styles: ICustomFlatListStyles = {
     header: {
-      marginBottom: heights.sticky + heights.topList // <-- In order for the list to be under other elements
+      marginBottom: heights.sticky + heights.topList, // <-- In order for the list to be under other elements
     },
     stickyElement: {
       left: 0,
@@ -46,11 +46,11 @@ export const useCustomFlatListHook = (): TUseCustomFlatListHook => {
             // <-- To move an element according to the scroll position
             extrapolate: "clamp",
             inputRange: [-window.height, heights.header],
-            outputRange: [window.height, -heights.header]
-          })
-        }
+            outputRange: [window.height, -heights.header],
+          }),
+        },
       ],
-      zIndex: 2
+      zIndex: 2,
     },
     topElement: {
       left: 0,
@@ -64,17 +64,17 @@ export const useCustomFlatListHook = (): TUseCustomFlatListHook => {
             extrapolate: "clamp",
             inputRange: [
               -window.height,
-              heights.header + heights.sticky + heights.topList
+              heights.header + heights.sticky + heights.topList,
             ],
             outputRange: [
               window.height,
-              -(heights.header + heights.sticky + heights.topList)
-            ]
-          })
-        }
+              -(heights.header + heights.sticky + heights.topList),
+            ],
+          }),
+        },
       ],
-      zIndex: 1
-    }
+      zIndex: 1,
+    },
   };
 
   const onLayoutHeaderElement = (event: LayoutChangeEvent): void => {
@@ -94,7 +94,6 @@ export const useCustomFlatListHook = (): TUseCustomFlatListHook => {
     styles,
     onLayoutHeaderElement,
     onLayoutTopListElement,
-    onLayoutTopStickyElement
+    onLayoutTopStickyElement,
   ];
 };
-
