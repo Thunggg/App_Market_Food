@@ -1,17 +1,25 @@
 import * as React from "react";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Image, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel, {
   ICarouselInstance,
   Pagination,
 } from "react-native-reanimated-carousel";
 
-const data = [...new Array(6).keys()];
-const width = Dimensions.get("window").width;
+import bn1 from "@/assets/banner/bn1.jpg";
+import bn2 from "@/assets/banner/bn2.jpg";
+import bn3 from "@/assets/banner/bn3.jpg";
 
 function BannerHome() {
   const ref = React.useRef<ICarouselInstance>(null);
   const progress = useSharedValue<number>(0);
+  const width = Dimensions.get("window").width;
+
+  const sliders = [
+    { id: 1, source: bn1 },
+    { id: 2, source: bn2 },
+    { id: 3, source: bn3 },
+  ];
 
   const onPressPagination = (index: number) => {
     ref.current?.scrollTo({
@@ -29,10 +37,10 @@ function BannerHome() {
       <Carousel
         ref={ref}
         width={width}
-        height={width / 2}
-        data={data}
+        height={width / 4}
+        data={sliders}
         onProgressChange={progress}
-        renderItem={({ index }) => (
+        renderItem={({ item, index }) => (
           <View
             style={{
               flex: 1,
@@ -40,15 +48,27 @@ function BannerHome() {
               justifyContent: "center",
             }}
           >
-            <Text style={{ textAlign: "center", fontSize: 30 }}>{index}</Text>
+            <Image
+              source={item.source}
+              style={{
+                width: width,
+                height: width / 3.7,
+                resizeMode: "cover",
+              }}
+            />
           </View>
         )}
       />
 
       <Pagination.Basic
         progress={progress}
-        data={data}
-        dotStyle={{ backgroundColor: "rgba(0,0,0,0.2)", borderRadius: 50 }}
+        data={sliders}
+        dotStyle={{
+          height: 5,
+          width: 5,
+          backgroundColor: "rgba(0,0,0,0.2)",
+          borderRadius: 50,
+        }}
         containerStyle={{ gap: 5, marginTop: 10 }}
         onPress={onPressPagination}
       />
