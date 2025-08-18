@@ -37,25 +37,17 @@ const ShareButton = (props: IProps) => {
             }}
             space="md"
           >
-            {/* <View className="w-4 h-4 justify-center items-center">
-              {loading && <Spinner size="small" color={APP_COLORS.GREY} />}
-            </View>
-            {icon && typeof icon === "object" ? icon : null}
-            <Text className={textStyle}>{title}</Text> */}
-            {loading ? 
-            (
+            {loading ? (
               <>
                 <HStack space="md">
                   <Box className="w-3 h-3 justify-center items-center">
                     <Spinner size="small" color={APP_COLORS.GREY} />
                   </Box>
                   <Text className={textStyle}>{title}</Text>
-                                    {icon && typeof icon === "object" ? icon : null}
-
+                  {icon && typeof icon === "object" ? icon : null}
                 </HStack>
               </>
-            ) : 
-            (
+            ) : (
               <>
                 {icon && typeof icon === "object" ? icon : null}
                 <Text className={textStyle}>{title}</Text>

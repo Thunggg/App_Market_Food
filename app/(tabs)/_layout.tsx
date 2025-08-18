@@ -95,7 +95,6 @@ const TabLayout = () => {
           title: "Thông báo",
         }}
       />
-
       <Tabs.Screen
         name="account"
         options={{

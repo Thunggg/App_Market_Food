@@ -11,6 +11,7 @@ import {
   useToast,
 } from "@/components/ui/toast";
 import { VStack } from "@/components/ui/vstack";
+import { useCurrentApp } from "@/context/app.context";
 import { loginAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
 import { LoginSchema } from "@/utils/validate.schema";
@@ -22,6 +23,7 @@ import { Text } from "react-native";
 const LoginPage = () => {
   const toast = useToast();
   const [loading, setLoading] = useState<boolean>(false);
+  const { setAppState } = useCurrentApp();
 
   const handleLogin = async (email: string, password: string) => {
     try {
@@ -30,7 +32,8 @@ const LoginPage = () => {
       setLoading(false);
 
       if (res && res.data) {
-        // router.push("/(app)/home");
+        router.push("/(tabs)");
+        setAppState(res.data);
       } else {
         const errorMessage = Array.isArray(res.message)
           ? res.message[0]
