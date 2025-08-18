@@ -5,8 +5,8 @@ const TextBetweenTwoLine = ({
   textStyle,
   text,
 }: {
-  textStyle: string;
-  text: string;
+  textStyle?: string;
+  text?: string;
 }) => {
   return (
     <>

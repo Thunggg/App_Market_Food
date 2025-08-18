@@ -63,6 +63,10 @@ export default function RootLayout() {
                       name="(tabs)"
                       options={{ headerShown: false }}
                     />
+                    <Stack.Screen
+                      name="(auth)/welcome"
+                      options={{ headerShown: false }}
+                    />
                     <Stack.Screen name="+not-found" />
                   </Stack>
                   <StatusBar
