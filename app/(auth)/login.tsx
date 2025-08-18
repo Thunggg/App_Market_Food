@@ -15,6 +15,7 @@ import { useCurrentApp } from "@/context/app.context";
 import { loginAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
 import { LoginSchema } from "@/utils/validate.schema";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
@@ -34,6 +35,7 @@ const LoginPage = () => {
       if (res && res.data) {
         router.push("/(tabs)");
         setAppState(res.data);
+        await AsyncStorage.setItem("access_token", res.data.access_token);
       } else {
         const errorMessage = Array.isArray(res.message)
           ? res.message[0]

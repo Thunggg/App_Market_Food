@@ -3,12 +3,36 @@ import googleLogo from "@/assets/images/auth/google.png";
 import backgroundImage from "@/assets/images/auth/welcome-background.png";
 import ShareButton from "@/components/button/ShareButton";
 import TextBetweenTwoLine from "@/components/button/TextBetweenTwoLine";
+import { useCurrentApp } from "@/context/app.context";
+import { getAccountAPI } from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, router } from "expo-router";
+import { useEffect } from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 
 const WelcomePage = () => {
+  const { setAppState } = useCurrentApp();
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+      const res = await getAccountAPI();
+
+      if (res.data) {
+        //success
+        setAppState({
+          user: res.data.user,
+          access_token: await AsyncStorage.getItem("access_token"),
+        });
+        router.replace("/(tabs)");
+      } else {
+        //error
+      }
+    };
+    fetchAccount();
+  }, []);
+
   return (
     <ImageBackground style={{ flex: 1 }} source={backgroundImage}>
       <LinearGradient

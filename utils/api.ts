@@ -27,3 +27,8 @@ export const loginAPI = (email: string, password: string) => {
     password,
   });
 };
+
+export const getAccountAPI = () => {
+  const url = `/api/v1/auth/account`;
+  return axios.get<IBackendRes<IUserLogin>>(url);
+};
