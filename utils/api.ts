@@ -32,3 +32,8 @@ export const getAccountAPI = () => {
   const url = `/api/v1/auth/account`;
   return axios.get<IBackendRes<IUserLogin>>(url);
 };
+
+export const getTopRestaurant = (ref: string) => {
+  const url = `/api/v1/restaurants/${ref}`;
+  return axios.post<IBackendRes<ITopRestaurant[]>>(url);
+};
