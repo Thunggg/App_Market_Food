@@ -13,6 +13,7 @@
   "dependencies": {
     "@expo/html-elements": "^0.4.2",
     "@expo/vector-icons": "^14.1.0",
+    "@faker-js/faker": "9.0.1",
     "@gluestack-ui/avatar": "^0.1.18",
     "@gluestack-ui/divider": "^0.1.10",
     "@gluestack-ui/icon": "^0.1.27",
@@ -28,6 +29,7 @@
     "@react-navigation/native": "^7.1.6",
     "axios": "^1.10.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "debounce": "2.1.1",
     "expo": "53.0.20",
     "expo-blur": "~14.1.5",
     "expo-constants": "~17.1.7",
@@ -57,6 +59,7 @@
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-svg": "15.11.2",
+    "react-native-tabs-section-list": "1.0.1",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
     "tailwindcss": "^3.4.17",

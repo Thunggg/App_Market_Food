@@ -13,9 +13,12 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import AppProvider from "@/context/app.context";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import * as SplashScreen from "expo-splash-screen";
 import { ReactNode } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+// Giữ splash cho đến khi ta chủ động hide
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -24,6 +27,7 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
+    // fonts chưa xong thì cứ return null, splash vẫn hiển thị
     return null;
   }
 
@@ -36,6 +40,7 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)/verify" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/welcome" options={{ headerShown: false }} />
+        <Stack.Screen name="product/index" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="light" backgroundColor="transparent" translucent />
