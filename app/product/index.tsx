@@ -1,10 +1,11 @@
-import RMain from "@/components/example/restaurant/main";
+import SectionListBasic from "@/components/example/section.list.basic";
 import { View } from "react-native";
 
 const ProductPage = () => {
   return (
-    <View>
-      <RMain />
+    <View style={{ flex: 1 }}>
+      {/* <RMain /> */}
+      <SectionListBasic />
     </View>
   );
 };
