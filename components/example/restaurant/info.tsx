@@ -5,9 +5,10 @@ import { Text, View } from "react-native";
 
 interface IProps {
   infoHeight: number;
+  restaurant: IRestaurant | null;
 }
 const Info = (props: IProps) => {
-  const { infoHeight } = props;
+  const { infoHeight, restaurant } = props;
 
   return (
     <View
@@ -30,9 +31,9 @@ const Info = (props: IProps) => {
           </View>
           <Text>{` `}</Text>
           <Ionicons name="shield-checkmark" size={20} color="orange" />
+          <Text>{` `}</Text>
           <Text style={{ fontSize: 20, fontWeight: "600" }}>
-            {" "}
-            Mì cay ăn vặt - hỏi dân it Trái Cây Sạch & Đồ Ăn Vặt
+            {restaurant?.name}
           </Text>
         </Text>
       </View>
@@ -59,7 +60,7 @@ const Info = (props: IProps) => {
 
         {/* nút like/dislike chuyển qua component sticky.header, do zIndex component nào bé hơn => không pressable được */}
         {/* <MaterialIcons name="favorite" size={20} color="black" />
-                <MaterialIcons onPress={() => alert("like")} name="favorite-outline" size={20} color={APP_COLOR.GREY} /> */}
+                <MaterialIcons onPress={() => alert("like")} name="favorite-outline" size={20} color={APP_COLORS.GREY} /> */}
       </View>
       <View style={{ height: 10, backgroundColor: "#e9e9e9" }}></View>
 
