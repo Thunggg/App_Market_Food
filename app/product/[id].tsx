@@ -16,7 +16,6 @@ const ProductPage = () => {
       const res = await getRestaurantByIdAPI(id as string);
       setLoading(true);
       if (res.data) {
-        console.log(res.data);
         setRestaurant(res.data);
       }
       setLoading(false);

@@ -3,10 +3,14 @@ import { getAccountAPI } from "@/utils/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 const RootPage = () => {
   const { setAppState } = useCurrentApp();
+  const [state, setState] = useState<any>();
 
   useEffect(() => {
     async function prepare() {
@@ -26,7 +30,11 @@ const RootPage = () => {
           router.replace("/(auth)/welcome");
         }
       } catch (e) {
-        console.warn(e);
+        setState(() => {
+          throw new Error("Không thể kết tới API Backend...");
+        });
+        // console.log("Không thể kết tới API Backend...")
+        // console.warn(e);
       } finally {
         // Tell the application to render
         await SplashScreen.hideAsync();
@@ -35,7 +43,11 @@ const RootPage = () => {
 
     prepare();
   }, []);
-
+  // if (true) {
+  //     return (
+  //         <Redirect href={"/(tabs)"} />
+  //     )
+  // }
   return <></>;
 };
 
