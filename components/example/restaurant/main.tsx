@@ -1,4 +1,8 @@
-import { getURLBaseBackend, processDataRestaurantMenu } from "@/utils/api";
+import {
+  currencyFormatter,
+  getURLBaseBackend,
+  processDataRestaurantMenu,
+} from "@/utils/api";
 import { APP_COLORS } from "@/utils/constant";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useRef, useState } from "react";
@@ -280,7 +284,9 @@ const RMain = (props: IProps) => {
                     flexDirection: "row",
                   }}
                 >
-                  <Text>{menuItem.basePrice}</Text>
+                  <Text style={{ color: APP_COLORS.ORANGE }}>
+                    {currencyFormatter(menuItem.basePrice)}
+                  </Text>
                   <AntDesign
                     name="plussquare"
                     size={24}
