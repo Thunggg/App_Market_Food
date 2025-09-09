@@ -3,7 +3,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
-  timeout: 5 * 1000,
+  timeout: 60 * 1000,
 });
 
 // Add a request interceptor
